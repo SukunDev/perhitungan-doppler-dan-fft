@@ -57,22 +57,29 @@ plt.ylabel('Magnitudo')
 plt.tight_layout()
 plt.show()
 
-
-# Menentukan frekuensi terendah dan tertinggi setelah efek Doppler
+# Menentukan frekuensi terendah dan tertinggi sebelum efek Doppler
 threshold = 0.1 * np.max(yf_magnitude)  # Contoh threshold
 indices = np.where(yf_magnitude > threshold)[0]
+min_freq_original = xf[indices[0]]
+max_freq_original = xf[indices[-1]]
+
+# Menentukan frekuensi terendah dan tertinggi setelah efek Doppler
 min_freq_doppler = xf_doppler[indices[0]]
 max_freq_doppler = xf_doppler[indices[-1]]
 
 # Menyimpan hasil ke dalam dataframe
 df = pd.DataFrame({
-    'Frekuensi Terendah': [xf[indices[0]], xf_doppler[indices[0]]] + [None]*(len(yf_magnitude)-2),
-    'Frekuensi Tertinggi': [xf[indices[-1]], xf_doppler[indices[-1]]] + [None]*(len(yf_magnitude)-2),
+    'Frekuensi Terendah Asli': [min_freq_original] + [None]*(len(yf_magnitude)-1),
+    'Frekuensi Tertinggi Asli': [max_freq_original] + [None]*(len(yf_magnitude)-1),
+    'Frekuensi Terendah Doppler': [min_freq_doppler] + [None]*(len(yf_magnitude)-1),
+    'Frekuensi Tertinggi Doppler': [max_freq_doppler] + [None]*(len(yf_magnitude)-1),
     'FFT': yf_magnitude
 })
 
 # Menyimpan dataframe ke dalam file Excel
 df.to_excel('hasil_analisis_audio.xlsx', index=False)
 
+print(f"Frekuensi terendah asli: {min_freq_original:.2f} Hz")
+print(f"Frekuensi tertinggi asli: {max_freq_original:.2f} Hz")
 print(f"Frekuensi terendah dengan efek Doppler: {min_freq_doppler:.2f} Hz")
 print(f"Frekuensi tertinggi dengan efek Doppler: {max_freq_doppler:.2f} Hz")
