@@ -4,7 +4,7 @@ menentukan terendah dan tertinggi pada pola suara, baik normal maupun yang dipen
 
 <p align="center"><img src="assets/charts.PNG" width="50%"></img></p>
 
-## cloning
+## Cloning
 
 ```bash
 git clone https://github.com/SukunDev/perhitungan-doppler-dan-fft.git
