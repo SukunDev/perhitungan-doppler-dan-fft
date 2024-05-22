@@ -2,6 +2,8 @@
 
 menentukan terendah dan tertinggi pada pola suara, baik normal maupun yang dipengaruhi efek doppler untuk selanjutnya dihitung FFT nya
 
+<p align="center"><img src="assets/charts.PNG" width="50%"></img></p>
+
 ## cloning
 
 ```bash
