@@ -47,30 +47,19 @@ pip install -r requirements.txt
 
 ## Menjalankan Program
 
-sebelum menjalankan program alangkah baik nya anda merubah beberapa baris kode di dalam main.py
-
-```python
-
-data, sampling_rate = sf.read('./sample/Data sample 1.wav') # masukkan sample audio
-```
-
-```python
-# Kecepatan suara dalam udara (m/s)
-speed_of_sound = 343.0
-
-# Kecepatan sumber (positif jika mendekat, negatif jika menjauh)
-source_speed = 20.0  # m/s, contoh nilai
-
-# Kecepatan pendengar (positif jika mendekat, negatif jika menjauh)
-listener_speed = 0.0  # m/s, contoh nilai
-```
-
-```python
-df.to_excel('hasil_analisis_audio.xlsx', index=False) # rubah nama file excel sesuai dengan kesukaan anda
-```
-
-jika sudah jalan kan program dengan
-
 ```bash
-python main.py
+usage: main.py [options] audio_sample operasi -o hasil_analisi_audio
+example: python main.py 'sample/Data sample 1.wav' spectrum -o hasil_analisi_audio
+         python main.py 'sample/Data sample 1.wav' 3d_spectrum
+
+Perhitungan fft dan doppler effect
+
+positional arguments:
+  audio_sample          audio sample yang ingin di perhitungkan
+  operasi               operasi yang di butuhkan list: spectrum, 3d_spectrum
+
+options:
+  -h, --help            show this help message and exit
+  -o [OUTPUT], --output [OUTPUT]
+                        save to excel
 ```
