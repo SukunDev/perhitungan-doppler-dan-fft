@@ -70,8 +70,11 @@ class AudioAnalyzer:
         print(f"Hasil analisis telah disimpan ke '{filename}'")
 
 class Plotter:
-    def __init__(self, fft_segments):
+    def __init__(self, fft_segments, max_frequency=16000, speed_of_sound=343.0):
         self.fft_segments = fft_segments
+        self.max_frequency = max_frequency
+        self.speed_of_sound = speed_of_sound
+        self.time_interval = 200 / speed_of_sound  # Time interval corresponding to 200 meters
 
     def plot_spectrum(self):
         plt.figure(figsize=(12, 6))
@@ -97,13 +100,20 @@ class Plotter:
         ax = fig.add_subplot(111, projection='3d')
 
         for i, (xf, yf_magnitude, xf_doppler) in enumerate(self.fft_segments):
-            ax.plot(xf, np.full_like(xf, i * 0.2), yf_magnitude, color='b')
-            ax.plot(xf_doppler, np.full_like(xf_doppler, i * 0.2), yf_magnitude, color='r', linestyle='--')
+            # Filter frequencies above the max_frequency
+            mask = xf <= self.max_frequency
+            xf = xf[mask]
+            yf_magnitude = yf_magnitude[mask]
+            xf_doppler = xf_doppler[mask]
+
+            distance_interval = i * 200  # each segment is 200 meters apart
+
+            ax.plot(xf, np.full_like(xf, distance_interval), yf_magnitude, color='b')
+            ax.plot(xf_doppler, np.full_like(xf_doppler, distance_interval), yf_magnitude, color='r', linestyle='--')
 
         ax.set_xlabel('Frekuensi (Hz)')
-        ax.set_ylabel('Waktu (s)')
+        ax.set_ylabel('Jarak (m)')
         ax.set_zlabel('Magnitudo')
         ax.set_title('Spektrum Frekuensi 3D dengan Efek Doppler')
 
         plt.show()
-
