@@ -3,6 +3,7 @@
 menentukan terendah dan tertinggi pada pola suara, baik normal maupun yang dipengaruhi efek doppler untuk selanjutnya dihitung FFT nya
 
 <p align="center"><img src="assets/charts.PNG" width="50%"></img></p>
+<p align="center"><img src="assets/3d_spectrum.png" width="50%"></img></p>
 
 ## Cloning
 
