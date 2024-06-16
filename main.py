@@ -1,11 +1,11 @@
-from libs import AudioAnalyzer, Plotter
+from libs import AudioAnalyzer, Plotter, SpeedPredictor
 import argparse
 import os
 
 
 parser = argparse.ArgumentParser(
     description="Perhitungan fft dan doppler effect",
-    usage="%(prog)s [options] audio_sample operasi -o hasil_analisi_audio\nexample: python main.py 'sample/Data sample 1.wav' spectrum -o hasil_analisi_audio\n         python main.py 'sample/Data sample 1.wav' 3d_spectrum"
+    usage="%(prog)s [options] audio_sample operasi -o hasil_analisi_audio\nexample: python main.py 'sample/Data sample 1.wav' spectrum -o hasil_analisi_audio\n         python main.py 'sample/Data sample 1.wav' 3d_spectrum\n         python main.py 'sample/Data sample 1.wav' plot_speed"
 )
 
 
@@ -45,5 +45,11 @@ elif args.operasi == "3d_spectrum":
     fft_segments = analyzer.compute_fft()
     plotter = Plotter(fft_segments)
     plotter.plot_3d_spectrum()
+elif args.operasi == "plot_speed":
+    analyzer = AudioAnalyzer(args.audio_sample)
+    fft_segments = analyzer.compute_fft()
+    predictor = SpeedPredictor(fft_segments)
+    predictor.plot_average_spectrum()
+
 else:
-    parser.error("operasi yang di butuhkan\nlist: spectrum\n      3d_spectrum")
+    parser.error("operasi yang di butuhkan\nlist: spectrum\n      3d_spectrum\n      plot_speed")

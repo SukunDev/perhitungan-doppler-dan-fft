@@ -1,1 +1,1 @@
-from .__main__ import AudioAnalyzer, Plotter
+from .__main__ import AudioAnalyzer, Plotter, SpeedPredictor

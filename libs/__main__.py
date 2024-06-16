@@ -117,3 +117,35 @@ class Plotter:
         ax.set_title('Spektrum Frekuensi 3D dengan Efek Doppler')
 
         plt.show()
+
+
+class SpeedPredictor:
+    def __init__(self, fft_segments):
+        self.fft_segments = fft_segments
+
+    def average_spectrum_over_time(self):
+        averaged_spectrum = []
+        for xf, yf_magnitude, xf_doppler in self.fft_segments:
+            # Filter out noise frequencies
+            threshold = 0.1 * np.max(yf_magnitude)
+            indices = np.where(yf_magnitude > threshold)[0]
+            xf_filtered = xf[indices]
+            yf_magnitude_filtered = yf_magnitude[indices]
+
+            # Calculate average magnitude
+            average_magnitude = np.mean(yf_magnitude_filtered)
+            averaged_spectrum.append(average_magnitude)
+
+        return averaged_spectrum
+
+    def plot_average_spectrum(self):
+        averaged_spectrum = self.average_spectrum_over_time()
+        time_intervals = np.arange(len(averaged_spectrum)) * 0.2  # Assuming segment duration is 0.2 seconds
+
+        plt.figure(figsize=(10, 6))
+        plt.plot(time_intervals, averaged_spectrum, marker='o', linestyle='-')
+        plt.title('Rata-rata Magnitudo terhadap Interval Waktu')
+        plt.xlabel('Waktu (detik)')
+        plt.ylabel('Rata-rata Magnitudo')
+        plt.grid(True)
+        plt.show()

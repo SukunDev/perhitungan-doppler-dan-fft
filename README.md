@@ -4,6 +4,7 @@ menentukan terendah dan tertinggi pada pola suara, baik normal maupun yang dipen
 
 <p align="center"><img src="assets/charts.PNG" width="50%"></img></p>
 <p align="center"><img src="assets/3d_spectrum.png" width="50%"></img></p>
+<p align="center"><img src="assets/rata_rata_magnitudo_terhadap_interval_waktu.png" width="50%"></img></p>
 
 ## Cloning
 
@@ -29,9 +30,7 @@ Masuk ke virtual environment
 ### CMD
 
 ```bash
-cd .venv/Scripts
-activate
-cd ../..
+call .venv/scripts/activate
 ```
 
 ### Git Bash
@@ -52,12 +51,13 @@ pip install -r requirements.txt
 usage: main.py [options] audio_sample operasi -o hasil_analisi_audio
 example: python main.py 'sample/Data sample 1.wav' spectrum -o hasil_analisi_audio
          python main.py 'sample/Data sample 1.wav' 3d_spectrum
+         python main.py 'sample/Data sample 1.wav' plot_speed
 
 Perhitungan fft dan doppler effect
 
 positional arguments:
   audio_sample          audio sample yang ingin di perhitungkan
-  operasi               operasi yang di butuhkan list: spectrum, 3d_spectrum
+  operasi               operasi yang di butuhkan list: spectrum, 3d_spectrum, plot_speed
 
 options:
   -h, --help            show this help message and exit
